@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InAmigos Foundation | Empowering Communities — Task 5 Feature Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        warm: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom animations and Figma annotation styling */
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+            50% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+        .btn-pulse {
+            animation: pulse-soft 2.5s infinite;
+        }
+        .figma-note {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+            border-left: 5px solid #ca8a04;
+            box-shadow: 0 12px 28px -6px rgba(202, 138, 4, 0.35), 0 4px 10px -2px rgba(0,0,0,0.08);
+        }
+        .figma-note-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px) scale(0.95);
+            height: 0;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+            border: none;
+        }
+        /*Figma bounding box frame effect when UX mode is active*/
+        body.ux-mode-active .ux-frame {
+            outline: 2px dashed #6366f1;
+            outline-offset: -4px;
+            position: relative;
+        }
+        .ux-frame-tag {
+            display: none;
+        }
+        body.ux-mode-active .ux-frame-tag {
+            display: inline-flex;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 9999px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white ux-mode-active">
+
+    <!-- ==========================================
+         TASK 5 FIGMA / UX FEATURE HIGHLIGHT BAR
+         ========================================== -->
+    <div class="bg-indigo-950 text-white py-2.5 px-4 border-b border-indigo-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+            <div class="flex items-center gap-2.5">
+                <span class="bg-indigo-500/30 border border-indigo-400/50 text-indigo-200 px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1.5">
+                    <i class="fa-brands fa-figma text-pink-400"></i> Task 5 Deliverable
+                </span>
+                <span class="font-medium text-indigo-100 hidden md:inline">
+                    InAmigos Foundation — Interactive NGO Website & UX Feature Showcase
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3 ml-auto">
+                <!-- Toggle Figma Sticky Notes & Frame Outlines -->
+                <button id="uxModeBtn" onclick="toggleUXMode()" class="flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-3.5 py-1 rounded-full shadow-md transition-all cursor-pointer">
+                    <i class="fa-solid fa-note-sticky"></i>
+                    <span id="uxModeText">✨ Feature Notes: ON</span>
+                </button>
+                <!-- Quick LinkedIn / Task 5 Proof Modal Button -->
+                <button onclick="openTaskModal()" class="bg-indigo-800 hover:bg-indigo-700 text-indigo-100 px-3 py-1 rounded-full font-medium border border-indigo-600 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-clipboard-check text-emerald-400"></i>
+                    <span class="hidden sm:inline">Task 5 Guide & LinkedIn Copy</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         STICKY GLASSMORPHIC NAVIGATION BAR
+         ========================================== -->
+    <header class="sticky top-[45px] z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-lg shadow-brand-500/25 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-hands-holding-child text-xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-display font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">InAmigos</span>
+                        <span class="text-xs font-bold uppercase tracking-wider bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300 px-2 py-0.5 rounded-md">Foundation</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Regd. NGO • 80G & 12A Certified</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#impact" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Impact</a>
+                <a href="#donate" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Donate</a>
+                <a href="#campaigns" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Campaigns & Events</a>
+                <a href="#volunteer" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Volunteer</a>
+                <a href="#testimonials" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Stories</a>
+                <a href="#transparency" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Transparency</a>
+                <a href="#contact" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Contact</a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                <!-- Language Selector -->
+                <select id="langSelector" onchange="switchLanguage(this.value)" aria-label="Select Language" class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold px-2.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none">
+                    <option value="EN">🌐 EN</option>
+                    <option value="HI">🇮🇳 हिंदी</option>
+                    <option value="OD">🇮🇳 ଓଡ଼ିଆ</option>
+                </select>
+
+                <!-- Dark Mode Button -->
+                <button onclick="toggleDarkMode()" aria-label="Toggle Dark Mode" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Primary CTA -->
+                <a href="#donate" class="btn-pulse bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm px-4 sm:px-5 py-2.5 rounded-xl shadow-md flex items-center gap-2 transition">
+                    <i class="fa-solid fa-heart text-rose-300"></i>
+                    <span>Donate Now</span>
+                </a>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 space-y-3 text-sm font-semibold">
+            <a href="#impact" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">📊 Live Impact Showcase</a>
+            <a href="#donate" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">💝 Frictionless Donation</a>
+            <a href="#campaigns" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">🚀 Active Campaigns & Events</a>
+            <a href="#volunteer" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">🤝 Volunteer Form</a>
+            <a href="#testimonials" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">💬 Beneficiary Testimonials</a>
+            <a href="#transparency" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">🛡️ Financial Transparency</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-1.5 hover:text-brand-600">📞 Contact & Helpline</a>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         SECTION 1: HERO & LIVE IMPACT SHOWCASE
+         ========================================== -->
+    <section id="impact" class="ux-frame relative overflow-hidden pt-8 pb-20 lg:pt-14 lg:pb-24 bg-gradient-to-b from-brand-50/70 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 01 // Hero_&_Impact_Showcase
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- FIGMA ANNOTATION CALLOUT #1 -->
+            <div class="figma-note rounded-2xl p-4 mb-8 text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-600 text-white font-display font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm sm:text-base uppercase tracking-wide text-amber-950">Feature 1: High-Trust Hero & Live Impact Showcase</h3>
+                            <span class="bg-amber-900/15 text-amber-950 text-[11px] font-bold px-2 py-0.5 rounded">First 5-Second Hook</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-amber-950/90 mt-1">
+                            <strong>Why it matters for InAmigos Foundation:</strong> Visitors decide within 5 seconds whether an NGO is credible. Pairing an emotional mission headline with real-time impact counters and a clear fund-utilization bar builds immediate donor trust and drives action.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-mono font-bold bg-white/70 px-2.5 py-1 rounded-lg text-amber-900 shrink-0 self-start sm:self-center">UX Priority: Critical</span>
+            </div>
+
+            <!-- Hero Grid -->
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <!-- Left Column: Mission & Dual CTAs -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-brand-100 dark:bg-brand-900/50 text-brand-800 dark:text-brand-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold border border-brand-200 dark:border-brand-800">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+                        <span id="heroBadgeText">Empowering Grassroots India Since 2019</span>
+                    </div>
+
+                    <h1 id="heroHeadline" class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-slate-900 dark:text-white tracking-tight leading-[1.12]">
+                        Small Acts of Kindness, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-teal-500">Transforming Millions</span> of Lives.
+                    </h1>
+
+                    <p id="heroSubtext" class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                        InAmigos Foundation bridges the gap between compassionate donors and underserved communities through child education, rural healthcare, women empowerment, and emergency hunger relief.
+                    </p>
+
+                    <!-- Dual Action Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#donate" class="bg-brand-600 hover:bg-brand-700 text-white font-display font-bold px-7 py-4 rounded-2xl shadow-xl shadow-brand-600/25 flex items-center gap-3 text-base transition transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                            <span>Make a Donation</span>
+                        </a>
+                        <a href="#volunteer" class="bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-display font-bold px-7 py-4 rounded-2xl border border-slate-300 dark:border-slate-700 shadow-sm flex items-center gap-3 text-base transition">
+                            <i class="fa-solid fa-people-group text-brand-600"></i>
+                            <span>Become a Volunteer</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Micro-badges -->
+                    <div class="pt-4 flex flex-wrap items-center gap-6 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-brand-600 text-base"></i>
+                            <span>50% Tax Exemption (80G)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-file-shield text-brand-600 text-base"></i>
+                            <span>100% Verified Field Reports</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-lock text-brand-600 text-base"></i>
+                            <span>256-Bit Secure Razorpay/UPI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Visual Story Card + Live Allocation Breakdown -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-3xl bg-white dark:bg-slate-900 p-4 sm:p-5 shadow-2xl border border-slate-200/80 dark:border-slate-800">
+                        <div class="relative rounded-2xl overflow-hidden aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=80" 
+                                 onerror="this.src='https://placehold.co/800x600/059669/ffffff?text=InAmigos+Field+Impact'"
+                                 alt="Children smiling in classroom" 
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent flex flex-col justify-end p-5 text-white">
+                                <span class="bg-warm-500 text-slate-950 text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-md w-fit mb-2">
+                                    Featured Drive • Odisha & Bihar
+                                </span>
+                                <p class="font-display font-bold text-lg leading-snug">Project Shiksha Setu: 4,200 Rural Girls Enrolled in Digital Classrooms</p>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Fund Allocation Bar -->
+                        <div class="mt-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/60 dark:border-slate-700">
+                            <div class="flex items-center justify-between text-xs font-bold mb-2">
+                                <span class="text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-chart-pie text-brand-600"></i> Where Every ₹100 Goes
+                                </span>
+                                <a href="#transparency" class="text-brand-600 dark:text-brand-400 hover:underline">View Audited Report →</a>
+                            </div>
+                            <!-- Segmented Bar -->
+                            <div class="w-full h-3.5 rounded-full overflow-hidden flex bg-slate-200 dark:bg-slate-700">
+                                <div class="bg-brand-600 h-full" style="width: 85%" title="85% Direct Field Programs"></div>
+                                <div class="bg-warm-500 h-full" style="width: 10%" title="10% Operations & Staff"></div>
+                                <div class="bg-indigo-500 h-full" style="width: 5%" title="5% Fundraising & Outreach"></div>
+                            </div>
+                            <div class="flex flex-wrap justify-between gap-2 text-[11px] font-semibold text-slate-600 dark:text-slate-300 mt-2.5">
+                                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-600"></span> 85% Direct Programs</span>
+                                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-warm-500"></span> 10% Operations</span>
+                                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> 5% Outreach</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Impact Metrics Counter Grid -->
+            <div class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+                    <div class="w-11 h-11 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-child-reaching"></i>
+                    </div>
+                    <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white">54,200+</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">Lives Directly Impacted</p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+                    <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white">135+</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">Active Villages & Slums</p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                    </div>
+                    <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white">₹2.4 Cr+</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">Grassroots Funds Deployed</p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition">
+                    <div class="w-11 h-11 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-users-rays"></i>
+                    </div>
+                    <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white">8,900+</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">Active Youth Volunteers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 2: FRICTIONLESS DONATION ENGINE
+         ========================================== -->
+    <section id="donate" class="ux-frame relative py-20 bg-white dark:bg-slate-900 border-y border-slate-200/80 dark:border-slate-800">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 02 // Frictionless_Donation_Widget
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- FIGMA ANNOTATION CALLOUT #2 -->
+            <div class="figma-note rounded-2xl p-4 mb-10 text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-600 text-white font-display font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm sm:text-base uppercase tracking-wide text-amber-950">Feature 2: Frictionless Donation Widget + Real-Time Impact Calculator</h3>
+                            <span class="bg-amber-900/15 text-amber-950 text-[11px] font-bold px-2 py-0.5 rounded">Conversion Booster</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-amber-950/90 mt-1">
+                            <strong>Why it matters for InAmigos Foundation:</strong> Donors abandon complex forms. By offering 1-click preset amounts, a "Monthly Recurring" toggle for sustainable funding, and a real-time calculator showing exactly what their rupee buys, conversion rates increase by up to 42%.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-mono font-bold bg-white/70 px-2.5 py-1 rounded-lg text-amber-900 shrink-0 self-start sm:self-center">UX Priority: Critical</span>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
+                <!-- Left Column: Why Donate & Tax Perks -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-brand-600 dark:text-brand-400 font-display font-bold text-sm uppercase tracking-wider">Fuel the Change</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white leading-tight">
+                        Every Rupee Creates Measurable Grassroots Impact
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Whether you sponsor a child’s annual school kit or fund a village health camp, you receive instant 80G tax receipts and quarterly photo/video updates from the field.
+                    </p>
+
+                    <!-- Impact Guarantee Cards -->
+                    <div class="space-y-3.5 pt-2">
+                        <div class="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700">
+                            <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-900/60 text-brand-600 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">Instant 80G Tax Exemption Certificate</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Claim 50% tax deduction under Section 80G of the Income Tax Act automatically on email.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-camera-retro"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">GPS-Tagged Field Proof</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Track how your contribution is utilized with real beneficiary stories and campaign reports.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Donation Box -->
+                <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-800/90 rounded-3xl p-6 sm:p-8 border-2 border-brand-500/30 shadow-xl">
+                    <!-- Frequency Toggle: One-Time vs Monthly -->
+                    <div class="grid grid-cols-2 p-1.5 bg-slate-200/80 dark:bg-slate-900 rounded-2xl mb-6">
+                        <button id="freqOneTime" onclick="setDonationFrequency('one-time')" class="py-2.5 px-4 rounded-xl font-display font-bold text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm transition">
+                            One-Time Donation
+                        </button>
+                        <button id="freqMonthly" onclick="setDonationFrequency('monthly')" class="py-2.5 px-4 rounded-xl font-display font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 transition flex items-center justify-center gap-1.5">
+                            <span>Monthly Impact</span>
+                            <span class="bg-brand-600 text-white text-[10px] px-2 py-0.5 rounded-full uppercase">2x Impact</span>
+                        </button>
+                    </div>
+
+                    <!-- Preset Amount Buttons -->
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                        Select Contribution Amount (INR)
+                    </label>
+                    <div class="grid grid-cols-3 sm:grid-cols-5 gap-2.5 mb-4">
+                        <button onclick="selectAmount(250)" class="amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 transition" data-amt="250">₹250</button>
+                        <button onclick="selectAmount(500)" class="amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border-2 border-brand-600 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 transition" data-amt="500">₹500</button>
+                        <button onclick="selectAmount(1000)" class="amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 transition" data-amt="1000">₹1,000</button>
+                        <button onclick="selectAmount(2500)" class="amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 transition" data-amt="2500">₹2,500</button>
+                        <button onclick="selectAmount(5000)" class="amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 transition col-span-2 sm:col-span-1" data-amt="5000">₹5,000</button>
+                    </div>
+
+                    <!-- Custom Amount & Cause Selector -->
+                    <div class="grid sm:grid-cols-2 gap-4 mb-5">
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">₹</span>
+                            <input id="customAmountInput" type="number" min="50" value="500" oninput="updateCustomAmount(this.value)" placeholder="Custom Amount"
+                                   class="w-full pl-9 pr-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-display font-bold text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
+                        </div>
+                        <select id="donationCause" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-brand-500">
+                            <option value="Where Needed Most">🎯 Where Needed Most</option>
+                            <option value="Child Education (Project Shiksha)">📚 Child Education (Shiksha)</option>
+                            <option value="Zero Hunger & Daily Meals">🍲 Zero Hunger & Nutrition</option>
+                            <option value="Rural Women Livelihood">🧵 Women Livelihood</option>
+                            <option value="Medical & Health Camps">🏥 Rural Health Camps</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Impact Preview Banner -->
+                    <div class="p-4 rounded-2xl bg-brand-600/10 dark:bg-brand-500/15 border border-brand-500/30 flex items-center gap-4 mb-6">
+                        <div id="impactIconBox" class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl shrink-0 shadow">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300">Your Direct Impact</span>
+                            <p id="impactCalculatorText" class="font-display font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                                ₹500 provides complete school stationery kits and nutritional mid-day meals for 5 children for a week.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Donor Quick Details & Payment Tabs -->
+                    <div class="grid sm:grid-cols-2 gap-3 mb-4">
+                        <input id="donorName" type="text" placeholder="Your Full Name *" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                        <input id="donorEmail" type="email" placeholder="Email Address (for Receipt) *" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                    </div>
+
+                    <!-- Payment Method Selector & 80G Checkbox -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-6 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-slate-500">Pay via:</span>
+                            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-brand-500 font-semibold cursor-pointer">
+                                <input type="radio" name="paymethod" value="UPI / QR" checked class="accent-brand-600"> UPI / GPay
+                            </label>
+                            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-semibold cursor-pointer">
+                                <input type="radio" name="paymethod" value="Card" class="accent-brand-600"> Card
+                            </label>
+                            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-semibold cursor-pointer">
+                                <input type="radio" name="paymethod" value="NetBanking" class="accent-brand-600"> NetBanking
+                            </label>
+                        </div>
+
+                        <label class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium cursor-pointer">
+                            <input id="tax80GCheck" type="checkbox" checked class="accent-brand-600 w-4 h-4 rounded">
+                            <span>Send 80G Tax Certificate</span>
+                        </label>
+                    </div>
+
+                    <button onclick="processDonation()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-700 hover:to-teal-700 text-white font-display font-bold text-base shadow-lg shadow-brand-600/25 flex items-center justify-center gap-2.5 transition cursor-pointer">
+                        <i class="fa-solid fa-lock"></i>
+                        <span id="donateSubmitBtnText">Proceed to Donate ₹500 (One-Time)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 3: ACTIVE CAMPAIGNS & EVENTS
+         ========================================== -->
+    <section id="campaigns" class="ux-frame relative py-20 bg-slate-50 dark:bg-slate-950">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 03 // Campaigns_&_Events_Grid
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- FIGMA ANNOTATION CALLOUT #3 -->
+            <div class="figma-note rounded-2xl p-4 mb-10 text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-600 text-white font-display font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm sm:text-base uppercase tracking-wide text-amber-950">Feature 3: Active Campaigns & Upcoming Events with Visual Progress</h3>
+                            <span class="bg-amber-900/15 text-amber-950 text-[11px] font-bold px-2 py-0.5 rounded">Goal Transparency</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-amber-950/90 mt-1">
+                            <strong>Why it matters for InAmigos Foundation:</strong> Showing goal progress bars (e.g., "78% Funded") triggers the "Goal Gradient Effect"—supporters are far more likely to chip in when they see a specific campaign is close to reaching its target.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-mono font-bold bg-white/70 px-2.5 py-1 rounded-lg text-amber-900 shrink-0 self-start sm:self-center">UX Priority: High</span>
+            </div>
+
+            <!-- Section Heading & Filter Tabs -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <span class="text-brand-600 dark:text-brand-400 font-display font-bold text-sm uppercase tracking-wider">Targeted Missions</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-1">
+                        Active Campaigns & Upcoming Drives
+                    </h2>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterCampaigns('all')" class="camp-filter-btn active bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition" data-filter="all">All Drives</button>
+                    <button onclick="filterCampaigns('Education')" class="camp-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-filter="Education">📚 Education</button>
+                    <button onclick="filterCampaigns('Healthcare')" class="camp-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-filter="Healthcare">🏥 Healthcare</button>
+                    <button onclick="filterCampaigns('Environment')" class="camp-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-filter="Environment">🌱 Environment</button>
+                    <button onclick="filterCampaigns('Event')" class="camp-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-filter="Event">📅 Upcoming Events</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Campaigns Grid -->
+            <div id="campaignsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 4: VOLUNTEER ONBOARDING FORM
+         ========================================== -->
+    <section id="volunteer" class="ux-frame relative py-20 bg-white dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 04 // Volunteer_Onboarding_Hub
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- FIGMA ANNOTATION CALLOUT #4 -->
+            <div class="figma-note rounded-2xl p-4 mb-10 text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-600 text-white font-display font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm sm:text-base uppercase tracking-wide text-amber-950">Feature 4: Skill-Based Volunteer Onboarding & Instant Digital ID</h3>
+                            <span class="bg-amber-900/15 text-amber-950 text-[11px] font-bold px-2 py-0.5 rounded">Community Growth</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-amber-950/90 mt-1">
+                            <strong>Why it matters for InAmigos Foundation:</strong> Students and professionals want to contribute both on-ground and remotely (UI/UX design, social media, teaching). Skill-tag chips make matching effortless and generate an instant Volunteer Badge for social sharing.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-mono font-bold bg-white/70 px-2.5 py-1 rounded-lg text-amber-900 shrink-0 self-start sm:self-center">UX Priority: High</span>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Column: Perks of Volunteering -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 text-xs font-bold px-3.5 py-1.5 rounded-full">
+                        Join 8,900+ Change-Makers
+                    </span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white leading-tight">
+                        Donate Your Time & Skills as an InAmigos Volunteer
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Not all contributions are financial. Join our weekend field drives, teach underprivileged children, or volunteer remotely in digital design, content writing, and fundraising.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700">
+                            <i class="fa-solid fa-award text-brand-600 text-xl mb-2"></i>
+                            <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">Verified Certificate</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Receive an official NGO certificate & LOR for internships and CSR hours.</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700">
+                            <i class="fa-solid fa-laptop-house text-amber-500 text-xl mb-2"></i>
+                            <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">Hybrid / Remote</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Contribute from anywhere in India via virtual fellowships or weekend drives.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Volunteer Application Form -->
+                <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-800/80 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-lg">
+                    <form id="volunteerForm" onsubmit="submitVolunteerForm(event)" class="space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Full Name *</label>
+                                <input id="volName" type="text" required placeholder="e.g., Aarav Sharma" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Email Address *</label>
+                                <input id="volEmail" type="email" required placeholder="aarav@example.com" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Phone / WhatsApp *</label>
+                                <input id="volPhone" type="tel" required placeholder="+91 98765 43210" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">City / State *</label>
+                                <input id="volCity" type="text" required placeholder="e.g., Bhubaneswar / Delhi" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Availability</label>
+                                <select id="volMode" class="w-full px-3.5 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-medium focus:outline-none focus:border-brand-500">
+                                    <option value="Weekends (On-Field)">Weekends (On-Field)</option>
+                                    <option value="Remote / Virtual Internship">Remote / Virtual</option>
+                                    <option value="Weekdays (Flexible)">Weekdays (Flexible)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Skill Selector Chips -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2">Select Your Area of Interest (Click to Toggle)</label>
+                            <div class="flex flex-wrap gap-2" id="skillChipsContainer">
+                                <button type="button" onclick="toggleSkillChip(this)" class="skill-chip active bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition">📚 Teaching & Mentorship</button>
+                                <button type="button" onclick="toggleSkillChip(this)" class="skill-chip bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-bold px-3.5 py-2 rounded-xl transition">🎨 UI/UX, Web & Tech</button>
+                                <button type="button" onclick="toggleSkillChip(this)" class="skill-chip bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-bold px-3.5 py-2 rounded-xl transition">🍲 Food & Relief Distribution</button>
+                                <button type="button" onclick="toggleSkillChip(this)" class="skill-chip bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-bold px-3.5 py-2 rounded-xl transition">📢 Social Media & Fundraising</button>
+                                <button type="button" onclick="toggleSkillChip(this)" class="skill-chip bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-bold px-3.5 py-2 rounded-xl transition">🩺 Medical Camp Support</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Why do you want to join InAmigos? (Optional)</label>
+                            <textarea id="volMotivation" rows="2" placeholder="Share a short note about your passion..." class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-2xl bg-slate-900 dark:bg-brand-600 hover:bg-slate-800 dark:hover:bg-brand-700 text-white font-display font-bold text-sm sm:text-base shadow-lg flex items-center justify-center gap-2 transition cursor-pointer">
+                            <i class="fa-solid fa-id-badge"></i>
+                            <span>Submit & Generate Volunteer ID Card</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 5: VOICES OF IMPACT (TESTIMONIALS)
+         ========================================== -->
+    <section id="testimonials" class="ux-frame relative py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 05 // Voices_of_Impact_Testimonials
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- FIGMA ANNOTATION CALLOUT #5 -->
+            <div class="figma-note rounded-2xl p-4 mb-10 text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-600 text-white font-display font-bold flex items-center justify-center shrink-0 mt-0.5">5</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm sm:text-base uppercase tracking-wide text-amber-950">Feature 5: Multi-Perspective Testimonials (Beneficiaries, Donors & Interns)</h3>
+                            <span class="bg-amber-900/15 text-amber-950 text-[11px] font-bold px-2 py-0.5 rounded">Emotional Proof</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-amber-950/90 mt-1">
+                            <strong>Why it matters for InAmigos Foundation:</strong> Numbers inform, but human stories inspire. Allowing visitors to filter stories from real village beneficiaries, recurring donors, and student volunteers creates 360-degree credibility.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-mono font-bold bg-white/70 px-2.5 py-1 rounded-lg text-amber-900 shrink-0 self-start sm:self-center">UX Priority: High</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-brand-600 dark:text-brand-400 font-display font-bold text-sm uppercase tracking-wider">Human Stories</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-1">
+                        Voices from the Ground
+                    </h2>
+                </div>
+
+                <!-- Role Filter -->
+                <div class="flex gap-2">
+                    <button onclick="filterTestimonials('all')" class="test-filter-btn bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition" data-role="all">All Voices</button>
+                    <button onclick="filterTestimonials('Beneficiary')" class="test-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-role="Beneficiary">Beneficiaries</button>
+                    <button onclick="filterTestimonials('Volunteer')" class="test-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-role="Volunteer">Volunteers & Interns</button>
+                    <button onclick="filterTestimonials('Donor')" class="test-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition" data-role="Donor">Donors</button>
+                </div>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div id="testimonialsGrid" class="grid md:grid-cols-3 gap-6">
+                <!-- Populated via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 6: FINANCIAL TRANSPARENCY & FAQ HUB
+         ========================================== -->
+    <section id="transparency" class="ux-frame relative py-20 bg-white dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 06 // Transparency_&_Compliance_Hub
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                <!-- Left: Compliance Badges & Annual Reports -->
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-brand-600 dark:text-brand-400 font-display font-bold text-sm uppercase tracking-wider">100% Accountable</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+                        Financial Transparency & Public Audits
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                        InAmigos Foundation adheres to the highest standards of non-profit governance. All our annual reports, utilization certificates, and statutory registrations are publicly accessible.
+                    </p>
+
+                    <!-- Statutory Badges -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-center">
+                            <span class="font-display font-extrabold text-lg text-brand-600">80G</span>
+                            <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">50% Tax Exempt</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-center">
+                            <span class="font-display font-extrabold text-lg text-brand-600">12A</span>
+                            <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Income Tax Regd.</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-center">
+                            <span class="font-display font-extrabold text-lg text-brand-600">CSR-1</span>
+                            <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">MCA Approved</p>
+                        </div>
+                    </div>
+
+                    <!-- Downloadable Reports List -->
+                    <div class="space-y-3 pt-2">
+                        <div onclick="showToast('📄 Downloading InAmigos Annual Impact & Audit Report (2025-26)...')" class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-brand-50 dark:hover:bg-slate-800/70 border border-slate-200 dark:border-slate-700 flex items-center justify-between cursor-pointer transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-file-pdf text-rose-500 text-2xl"></i>
+                                <div>
+                                    <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">Annual Impact & Audited Report FY 2025–26</h4>
+                                    <p class="text-xs text-slate-500">PDF • 4.2 MB • Verified by Chartered Accountants</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-brand-600 flex items-center gap-1"><i class="fa-solid fa-download"></i> PDF</span>
+                        </div>
+
+                        <div onclick="showToast('📄 Downloading 80G & CSR-1 Statutory Certificate Pack...')" class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-brand-50 dark:hover:bg-slate-800/70 border border-slate-200 dark:border-slate-700 flex items-center justify-between cursor-pointer transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-certificate text-amber-500 text-2xl"></i>
+                                <div>
+                                    <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">NGO Darpan, 80G & 12A Registration Dossier</h4>
+                                    <p class="text-xs text-slate-500">PDF • 1.8 MB • Public Compliance Verification</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-brand-600 flex items-center gap-1"><i class="fa-solid fa-download"></i> PDF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive FAQ Accordion -->
+                <div class="lg:col-span-6 space-y-4">
+                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-4">Frequently Asked Questions</h3>
+
+                    <div class="faq-item rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 overflow-hidden">
+                        <button onclick="toggleFaq(0)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                            <span>How do I claim my 80G Tax Exemption Certificate?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform faq-icon"></i>
+                        </button>
+                        <div class="faq-content px-5 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Once your donation is completed, an automated receipt along with Form 10BE (80G certificate) is sent to your registered email within 5 minutes. You can claim a 50% deduction while filing your ITR.
+                        </div>
+                    </div>
+
+                    <div class="faq-item rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 overflow-hidden">
+                        <button onclick="toggleFaq(1)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                            <span>Can college students apply for remote internships at InAmigos?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform faq-icon"></i>
+                        </button>
+                        <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Yes! InAmigos Foundation runs structured virtual and on-field internship programs in UI/UX Design, Social Media Marketing, HR, and Community Outreach. Simply register via the Volunteer form above.
+                        </div>
+                    </div>
+
+                    <div class="faq-item rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 overflow-hidden">
+                        <button onclick="toggleFaq(2)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                            <span>Can I donate physical items like books, clothes, or ration kits?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform faq-icon"></i>
+                        </button>
+                        <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Absolutely. You can drop off books, warm clothes, and dry rations at any of our regional collection centers or schedule a doorstep pickup during our monthly collection drives.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 7: CONTACT, HELPLINE & FOOTER
+         ========================================== -->
+    <footer id="contact" class="ux-frame relative bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+        <!-- Figma Frame Tag -->
+        <div class="ux-frame-tag absolute top-2 left-4 z-20 bg-indigo-600 text-white text-[11px] font-mono px-2.5 py-0.5 rounded shadow">
+            Frame 07 // Contact_&_Support_Footer
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- FIGMA ANNOTATION CALLOUT #6 -->
+            <div class="figma-note rounded-2xl p-4 mb-12 text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-600 text-white font-display font-bold flex items-center justify-center shrink-0 mt-0.5">6</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm sm:text-base uppercase tracking-wide text-amber-950">Feature 6: Accessible Contact, CSR Partnership Desk & 24/7 Helpline</h3>
+                            <span class="bg-amber-900/15 text-amber-950 text-[11px] font-bold px-2 py-0.5 rounded">Accessibility & Support</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-amber-950/90 mt-1">
+                            <strong>Why it matters for InAmigos Foundation:</strong> An NGO website serves both donors and people in distress. Providing a dedicated emergency helpline, physical office coordinates, and a quick CSR inquiry form ensures no supporter or beneficiary is left unheard.
+                        </p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-mono font-bold bg-white/70 px-2.5 py-1 rounded-lg text-amber-900 shrink-0 self-start sm:self-center">UX Priority: Essential</span>
+            </div>
+
+            <!-- Emergency Helpline Banner -->
+            <div class="rounded-3xl bg-gradient-to-r from-brand-700 via-brand-600 to-teal-700 p-6 sm:p-8 text-white mb-14 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center text-2xl shrink-0">
+                        <i class="fa-solid fa-phone-volume animate-bounce"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs uppercase font-bold tracking-wider text-brand-100">24×7 Relief & Community Helpline</span>
+                        <h3 class="font-display font-extrabold text-xl sm:text-2xl">Report a Community Need or Partner via CSR</h3>
+                        <p class="text-xs sm:text-sm text-brand-100 mt-0.5">Reach our rapid response team across India for emergency food, medical aid, or corporate partnerships.</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3 shrink-0">
+                    <a href="tel:18001234567" class="bg-white text-slate-900 font-display font-bold text-sm px-5 py-3 rounded-xl shadow hover:bg-brand-50 transition flex items-center gap-2">
+                        <i class="fa-solid fa-headset text-brand-600"></i> 1800-123-AMIGOS
+                    </a>
+                    <button onclick="openContactModal()" class="bg-slate-900/40 hover:bg-slate-900/60 border border-white/30 text-white font-display font-bold text-sm px-5 py-3 rounded-xl transition">
+                        Send Message
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer Columns -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <span class="font-display font-extrabold text-xl text-white">InAmigos Foundation</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                        A registered non-profit organization dedicated to holistic grassroots transformation through education, healthcare, environmental sustainability, and youth leadership.
+                    </p>
+                    <div class="flex items-center gap-3 pt-1">
+                        <a href="#contact" onclick="showToast('🔗 Opening InAmigos Foundation LinkedIn Page...')" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 text-white flex items-center justify-center transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#contact" onclick="showToast('🔗 Opening InAmigos Foundation Instagram...')" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 text-white flex items-center justify-center transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#contact" onclick="showToast('🔗 Opening InAmigos Foundation Twitter/X...')" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 text-white flex items-center justify-center transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#contact" onclick="showToast('🔗 Opening InAmigos Foundation YouTube...')" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 text-white flex items-center justify-center transition"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-2.5 text-sm">
+                    <h4 class="font-display font-bold text-white uppercase text-xs tracking-wider mb-3">Quick Links</h4>
+                    <a href="#impact" class="block text-slate-400 hover:text-brand-400">Impact Dashboard</a>
+                    <a href="#donate" class="block text-slate-400 hover:text-brand-400">Donate Online</a>
+                    <a href="#campaigns" class="block text-slate-400 hover:text-brand-400">Active Campaigns</a>
+                    <a href="#volunteer" class="block text-slate-400 hover:text-brand-400">Volunteer / Intern</a>
+                    <a href="#transparency" class="block text-slate-400 hover:text-brand-400">Annual Reports</a>
+                </div>
+
+                <div class="lg:col-span-3 space-y-2.5 text-sm">
+                    <h4 class="font-display font-bold text-white uppercase text-xs tracking-wider mb-3">Headquarters & Contact</h4>
+                    <p class="text-slate-400 text-xs flex items-start gap-2.5">
+                        <i class="fa-solid fa-location-dot text-brand-500 mt-1"></i>
+                        <span>InAmigos Social Impact Hub, Sector 4, Bhubaneswar & New Delhi, India</span>
+                    </p>
+                    <p class="text-slate-400 text-xs flex items-center gap-2.5">
+                        <i class="fa-solid fa-envelope text-brand-500"></i>
+                        <span>connect@inamigosfoundation.org.in</span>
+                    </p>
+                    <p class="text-slate-400 text-xs flex items-center gap-2.5">
+                        <i class="fa-solid fa-id-card text-brand-500"></i>
+                        <span>NITI Aayog NGO Darpan Verified</span>
+                    </p>
+                </div>
+
+                <div class="lg:col-span-3 space-y-3">
+                    <h4 class="font-display font-bold text-white uppercase text-xs tracking-wider">Monthly Impact Digest</h4>
+                    <p class="text-xs text-slate-400">Get field stories and volunteer alerts straight to your inbox.</p>
+                    <form onsubmit="subscribeNewsletter(event)" class="flex gap-2">
+                        <input id="newsletterEmail" type="email" required placeholder="Your email..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:border-brand-500">
+                        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shrink-0 transition">Join</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>© 2026 InAmigos Foundation. Designed for Task 5 – NGO Website Feature Highlight.</p>
+                <div class="flex gap-4">
+                    <button onclick="toggleUXMode()" class="text-amber-400 hover:underline font-semibold">Toggle Figma Feature Notes</button>
+                    <span>•</span>
+                    <button onclick="openTaskModal()" class="text-indigo-400 hover:underline font-semibold">Task 5 LinkedIn Caption</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         MODAL 1: SIMULATED 80G DONATION RECEIPT
+         ========================================== -->
+    <div id="receiptModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+            <button onclick="closeModal('receiptModal')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="font-display font-extrabold text-2xl text-center text-slate-900 dark:text-white">Thank You for Your Generosity!</h3>
+            <p class="text-xs text-center text-slate-500 mt-1">Official 80G Receipt • InAmigos Foundation</p>
+
+            <div class="my-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2.5 text-xs">
+                <div class="flex justify-between"><span class="text-slate-500">Receipt No:</span><span id="recId" class="font-mono font-bold text-slate-800 dark:text-slate-200">IAF-2026-8941</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Donor Name:</span><span id="recName" class="font-bold text-slate-800 dark:text-slate-200">Supporter</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Amount Paid:</span><span id="recAmount" class="font-bold text-brand-600 text-sm">₹500</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Program:</span><span id="recCause" class="font-semibold text-slate-800 dark:text-slate-200">Child Education</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">80G Tax Status:</span><span class="text-emerald-600 font-bold">Eligible (Form 10BE Sent)</span></div>
+            </div>
+
+            <button onclick="closeModal('receiptModal')" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-display font-bold text-sm transition">
+                Done & Return to Website
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL 2: VOLUNTEER DIGITAL ID CARD
+         ========================================== -->
+    <div id="volunteerModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+            <button onclick="closeModal('volunteerModal')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="rounded-2xl bg-gradient-to-br from-brand-700 via-brand-600 to-slate-900 p-6 text-white shadow-xl">
+                <div class="flex items-center justify-between border-b border-white/20 pb-3 mb-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-hands-holding-child text-lg"></i>
+                        <span class="font-display font-bold text-sm">InAmigos Foundation</span>
+                    </div>
+                    <span class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Verified Volunteer</span>
+                </div>
+                <h4 id="badgeName" class="font-display font-extrabold text-2xl">Aarav Sharma</h4>
+                <p id="badgeRole" class="text-xs text-brand-100 mt-0.5">📚 Teaching & Mentorship</p>
+                <div class="mt-5 pt-3 border-t border-white/15 flex justify-between items-center text-[11px] text-brand-100">
+                    <span id="badgeCity">📍 Bhubaneswar</span>
+                    <span id="badgeId" class="font-mono">ID: #VOL-2026-412</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-center text-slate-500 dark:text-slate-400 my-4">
+                Welcome aboard! Our Volunteer Coordinator will reach out on WhatsApp within 24 hours with your onboarding kit.
+            </p>
+            <button onclick="closeModal('volunteerModal')" class="w-full py-3 rounded-xl bg-slate-900 dark:bg-brand-600 text-white font-display font-bold text-sm">
+                Awesome, Close Preview
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL 3: TASK 5 SUBMISSION & LINKEDIN HELPER
+         ========================================== -->
+    <div id="taskModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('taskModal')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">Task 5 Submission Helper</span>
+            <h3 class="font-display font-extrabold text-2xl text-slate-900 dark:text-white mt-2">How to Use This for Your Task 5 Submission</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
+                Keep the yellow <strong>"✨ Feature Notes: ON"</strong> toggle enabled at the top of the page. Take full-page screenshots or print to PDF (<kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 rounded text-xs">Ctrl+P</kbd> → Save as PDF) to upload to your Google Drive folder and post on LinkedIn!
+            </p>
+
+            <div class="mt-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-200 space-y-2 font-sans">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-bold uppercase text-slate-500">Ready-to-Post LinkedIn Caption:</span>
+                    <button onclick="copyLinkedInPost()" class="bg-brand-600 text-white px-3 py-1 rounded-lg font-bold text-xs hover:bg-brand-700">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy Caption
+                    </button>
+                </div>
+                <textarea id="linkedInCaptionBox" readonly rows="7" class="w-full bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-300 dark:border-slate-700 text-xs leading-relaxed focus:outline-none">🚀 Excited to share my Task 5 submission (NGO Website Feature Highlight) for my internship with @InAmigos Foundation! 💻✨
+
+I designed and prototyped a modern, high-conversion NGO platform highlighting 6 critical UX features:
+1️⃣ Live Impact Showcase & Fund Allocation Bar
+2️⃣ Frictionless Donation Widget with Real-Time Impact Calculator & 80G Receipt
+3️⃣ Active Campaigns & Event Progress Trackers
+4️⃣ Skill-Based Volunteer Onboarding & Digital ID Generator
+5️⃣ Multi-Perspective Voices of Impact (Beneficiaries, Volunteers & Donors)
+6️⃣ Financial Transparency Hub & 24/7 Community Helpline
+
+#InAmigosFoundation #Task5 #UIUX #FigmaDesign #WebDesign #SocialImpact #NGO #Internship</textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL 4: QUICK CONTACT MODAL
+         ========================================== -->
+    <div id="contactModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+            <button onclick="closeModal('contactModal')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-display font-extrabold text-xl text-slate-900 dark:text-white mb-1">Contact InAmigos Support Desk</h3>
+            <p class="text-xs text-slate-500 mb-4">For CSR partnerships, media inquiries, or urgent community assistance.</p>
+            <form onsubmit="submitQuickContact(event)" class="space-y-3">
+                <input type="text" required placeholder="Your Name" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm">
+                <input type="email" required placeholder="Your Email" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm">
+                <textarea rows="3" required placeholder="How can we help?" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm"></textarea>
+                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-display font-bold text-sm">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 text-xs sm:text-sm font-semibold">
+        <i class="fa-solid fa-circle-check text-brand-400 text-base"></i>
+        <span id="toastMessage">Action completed!</span>
+    </div>
+
+    <!-- ==========================================
+         INTERACTIVE APPLICATION JAVASCRIPT
+         ========================================== -->
+    <script>
+        // --- State ---
+        let uxNotesVisible = true;
+        let currentDonationFreq = 'one-time';
+        let currentDonationAmount = 500;
+
+        // --- Campaigns Data ---
+        const campaignsData = [
+            {
+                id: 1,
+                title: "Project Shiksha: Digital Smart-Labs for 15 Rural Schools",
+                category: "Education",
+                location: "Mayurbhanj, Odisha",
+                raised: 390000,
+                goal: 500000,
+                donors: 342,
+                daysLeft: 12,
+                urgent: true,
+                image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 2,
+                title: "Zero Hunger Van: 10,000 Warm Nutritious Meals Drive",
+                category: "Healthcare",
+                location: "New Delhi & NCR",
+                raised: 215000,
+                goal: 250000,
+                donors: 518,
+                daysLeft: 6,
+                urgent: true,
+                image: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 3,
+                title: "Green Bharat: 25,000 Native Sapling Plantation & Care",
+                category: "Environment",
+                location: "Pune & Nashik",
+                raised: 140000,
+                goal: 200000,
+                donors: 195,
+                daysLeft: 21,
+                urgent: false,
+                image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 4,
+                title: "Project Swasthya: Mobile Cataract & Maternal Health Camp",
+                category: "Healthcare",
+                location: "Gaya, Bihar",
+                raised: 310000,
+                goal: 400000,
+                donors: 276,
+                daysLeft: 15,
+                urgent: false,
+                image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 5,
+                title: "Udaan Fellowship: Sewing & Digital Literacy for 300 Women",
+                category: "Education",
+                location: "Jaipur, Rajasthan",
+                raised: 185000,
+                goal: 300000,
+                donors: 164,
+                daysLeft: 19,
+                urgent: false,
+                image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 6,
+                title: "Upcoming Event: Mega Weekend Slum Teaching & Book Drive",
+                category: "Event",
+                location: "Nov 15, 2026 • 9:00 AM • Multiple Cities",
+                raised: 180,
+                goal: 250,
+                donors: 180,
+                daysLeft: 9,
+                isEvent: true,
+                image: "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // --- Testimonials Data ---
+        const testimonialsData = [
+            {
+                name: "Sunita Devi",
+                role: "Beneficiary",
+                tag: "Mother & Self-Help Group Leader • Bihar",
+                quote: "Before InAmigos Foundation set up the tailoring center in our village, I had no steady income. Today I earn ₹9,500 a month and both my daughters attend school with full scholarship kits.",
+                avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80"
+            },
+            {
+                name: "Rohan Verma",
+                role: "Volunteer",
+                tag: "UI/UX & Social Media Intern • IIT Roorkee",
+                quote: "Volunteering with InAmigos gave me real-world experience designing social campaigns that actually raised funds for flood-affected families. The mentorship and community energy are unmatched!",
+                avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80"
+            },
+            {
+                name: "Dr. Ananya Nair",
+                role: "Donor",
+                tag: "Monthly Impact Partner • Bengaluru",
+                quote: "What kept me donating every month for two years is their radical transparency. I get my 80G tax certificate automatically and receive real photos of the rural health camps my contribution supports.",
+                avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80"
+            }
+        ];
+
+        // --- Toggle Figma UX Feature Highlight Notes ---
+        function toggleUXMode() {
+            uxNotesVisible = !uxNotesVisible;
+            const notes = document.querySelectorAll('.figma-note');
+            const btnText = document.getElementById('uxModeText');
+
+            if (uxNotesVisible) {
+                document.body.classList.add('ux-mode-active');
+                notes.forEach(n => n.classList.remove('figma-note-hidden'));
+                btnText.textContent = '✨ Feature Notes: ON';
+                showToast('📌 Figma Feature Callouts & Frame Borders Enabled');
+            } else {
+                document.body.classList.remove('ux-mode-active');
+                notes.forEach(n => n.classList.add('figma-note-hidden'));
+                btnText.textContent = '✨ Feature Notes: OFF';
+                showToast('👁️ Clean Live Website Preview Mode');
+            }
+        }
+
+        // --- Donation Frequency & Impact Calculator ---
+        function setDonationFrequency(freq) {
+            currentDonationFreq = freq;
+            const btnOne = document.getElementById('freqOneTime');
+            const btnMon = document.getElementById('freqMonthly');
+
+            if (freq === 'one-time') {
+                btnOne.className = "py-2.5 px-4 rounded-xl font-display font-bold text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm transition";
+                btnMon.className = "py-2.5 px-4 rounded-xl font-display font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 transition flex items-center justify-center gap-1.5";
+            } else {
+                btnMon.className = "py-2.5 px-4 rounded-xl font-display font-bold text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm transition flex items-center justify-center gap-1.5";
+                btnOne.className = "py-2.5 px-4 rounded-xl font-display font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 transition";
+            }
+            updateDonationUI();
+        }
+
+        function selectAmount(amt) {
+            currentDonationAmount = amt;
+            document.getElementById('customAmountInput').value = amt;
+
+            document.querySelectorAll('.amt-btn').forEach(btn => {
+                if (parseInt(btn.dataset.amt) === amt) {
+                    btn.className = "amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border-2 border-brand-600 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 transition";
+                } else {
+                    btn.className = "amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 transition";
+                }
+            });
+            updateDonationUI();
+        }
+
+        function updateCustomAmount(val) {
+            const parsed = parseInt(val) || 100;
+            currentDonationAmount = parsed;
+            document.querySelectorAll('.amt-btn').forEach(btn => {
+                btn.className = "amt-btn py-3 px-2 rounded-xl font-display font-bold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 transition";
+            });
+            updateDonationUI();
+        }
+
+        function updateDonationUI() {
+            const amt = currentDonationAmount;
+            const impactText = document.getElementById('impactCalculatorText');
+            const submitText = document.getElementById('donateSubmitBtnText');
+            const freqLabel = currentDonationFreq === 'monthly' ? 'Monthly' : 'One-Time';
+
+            submitText.textContent = `Proceed to Donate ₹${amt.toLocaleString('en-IN')} (${freqLabel})`;
+
+            const mealsCount = Math.max(2, Math.floor(amt / 50));
+            const kitsCount = Math.max(1, Math.floor(amt / 250));
+
+            if (amt < 500) {
+                impactText.textContent = `₹${amt.toLocaleString('en-IN')} provides ${mealsCount} warm nutritious meals and notebooks for underserved children.`;
+            } else if (amt < 2000) {
+                impactText.textContent = `₹${amt.toLocaleString('en-IN')} provides complete school kits and mid-day meals for ${kitsCount * 2} children for a week.`;
+            } else {
+                impactText.textContent = `₹${amt.toLocaleString('en-IN')} sponsors digital classroom access, health checkups, and ration kits for ${kitsCount} rural families.`;
+            }
+        }
+
+        function processDonation() {
+            const name = document.getElementById('donorName').value.trim() || 'Kind Supporter';
+            const cause = document.getElementById('donationCause').value;
+            const freqLabel = currentDonationFreq === 'monthly' ? '/month' : '';
+
+            document.getElementById('recId').textContent = 'IAF-2026-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('recName').textContent = name;
+            document.getElementById('recAmount').textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}${freqLabel}`;
+            document.getElementById('recCause').textContent = cause;
+
+            document.getElementById('receiptModal').classList.remove('hidden');
+        }
+
+        // --- Render & Filter Campaigns ---
+        function renderCampaigns(filter = 'all') {
+            const grid = document.getElementById('campaignsGrid');
+            const filtered = filter === 'all' ? campaignsData : campaignsData.filter(c => c.category === filter);
+
+            grid.innerHTML = filtered.map(c => {
+                const percent = Math.min(100, Math.round((c.raised / c.goal) * 100));
+                if (c.isEvent) {
+                    return `
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl transition flex flex-col">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${c.image}" onerror="this.src='https://placehold.co/600x400/047857/ffffff?text=Volunteer+Event'" alt="${c.title}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">📅 Volunteer Drive</span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <p class="text-xs font-semibold text-brand-600 dark:text-brand-400 mb-1">${c.location}</p>
+                                <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white leading-snug">${c.title}</h3>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1.5">
+                                    <span>${c.raised} Volunteers Registered</span>
+                                    <span class="text-brand-600">${c.goal - c.raised} Spots Left</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-4">
+                                    <div class="bg-indigo-600 h-full rounded-full" style="width:${percent}%"></div>
+                                </div>
+                                <a href="#volunteer" class="block text-center w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-display font-bold text-xs uppercase tracking-wider transition">
+                                    RSVP as Volunteer →
+                                </a>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+
+                return `
+                <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl transition flex flex-col">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${c.image}" onerror="this.src='https://placehold.co/600x400/059669/ffffff?text=InAmigos+Campaign'" alt="${c.title}" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full">${c.category}</span>
+                        ${c.urgent ? '<span class="absolute top-3 right-3 bg-rose-600 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full uppercase">🔥 Urgent</span>' : ''}
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1"><i class="fa-solid fa-location-dot text-brand-600 mr-1"></i> ${c.location}</p>
+                            <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white leading-snug">${c.title}</h3>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-baseline text-xs mb-1.5">
+                                <span class="font-display font-extrabold text-base text-slate-900 dark:text-white">₹${c.raised.toLocaleString('en-IN')} <span class="text-xs font-normal text-slate-500">raised of ₹${c.goal.toLocaleString('en-IN')}</span></span>
+                                <span class="font-bold text-brand-600">${percent}%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
+                                <div class="bg-brand-600 h-full rounded-full" style="width:${percent}%"></div>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] text-slate-500 font-semibold mb-4">
+                                <span><i class="fa-solid fa-users text-brand-500 mr-1"></i> ${c.donors} Supporters</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> ${c.daysLeft} days left</span>
+                            </div>
+                            <a href="#donate" onclick="selectAmount(1000)" class="block text-center w-full py-3 rounded-xl bg-brand-50 dark:bg-brand-950/80 hover:bg-brand-600 text-brand-700 dark:text-brand-300 hover:text-white font-display font-bold text-xs uppercase tracking-wider border border-brand-500/30 transition">
+                                Contribute to Drive →
+                            </a>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function filterCampaigns(cat) {
+            document.querySelectorAll('.camp-filter-btn').forEach(btn => {
+                if (btn.dataset.filter === cat) {
+                    btn.className = "camp-filter-btn bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition";
+                } else {
+                    btn.className = "camp-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition";
+                }
+            });
+            renderCampaigns(cat);
+        }
+
+        // --- Volunteer Skill Chips & Form Submission ---
+        function toggleSkillChip(btn) {
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                btn.className = "skill-chip active bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition";
+            } else {
+                btn.className = "skill-chip bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-bold px-3.5 py-2 rounded-xl transition";
+            }
+        }
+
+        function submitVolunteerForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('volName').value.trim();
+            const city = document.getElementById('volCity').value.trim();
+            const activeChips = Array.from(document.querySelectorAll('.skill-chip.active')).map(b => b.textContent.trim());
+            const primarySkill = activeChips.length > 0 ? activeChips[0] : '🤝 Community Impact Volunteer';
+
+            document.getElementById('badgeName').textContent = name;
+            document.getElementById('badgeCity').textContent = '📍 ' + city;
+            document.getElementById('badgeRole').textContent = primarySkill;
+            document.getElementById('badgeId').textContent = 'ID: #VOL-2026-' + Math.floor(100 + Math.random() * 899);
+
+            document.getElementById('volunteerModal').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        // --- Render & Filter Testimonials ---
+        function renderTestimonials(role = 'all') {
+            const grid = document.getElementById('testimonialsGrid');
+            const list = role === 'all' ? testimonialsData : testimonialsData.filter(t => t.role === role);
+
+            grid.innerHTML = list.map(t => `
+                <div class="bg-white dark:bg-slate-900 p-6 sm:p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
+                                Verified ${t.role}
+                            </span>
+                            <i class="fa-solid fa-quote-right text-2xl text-slate-200 dark:text-slate-800"></i>
+                        </div>
+                        <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed italic">
+                            "${t.quote}"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+                        <img src="${t.avatar}" onerror="this.src='https://placehold.co/100x100/059669/ffffff?text=IA'" alt="${t.name}" class="w-11 h-11 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white">${t.name}</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">${t.tag}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterTestimonials(role) {
+            document.querySelectorAll('.test-filter-btn').forEach(btn => {
+                if (btn.dataset.role === role) {
+                    btn.className = "test-filter-btn bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition";
+                } else {
+                    btn.className = "test-filter-btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition";
+                }
+            });
+            renderTestimonials(role);
+        }
+
+        // --- FAQ Accordion ---
+        function toggleFaq(index) {
+            const contents = document.querySelectorAll('.faq-content');
+            contents[index].classList.toggle('hidden');
+        }
+
+        // --- Language Switcher ---
+        function switchLanguage(lang) {
+            const headline = document.getElementById('heroHeadline');
+            const badge = document.getElementById('heroBadgeText');
+            if (lang === 'HI') {
+                badge.textContent = '2019 से ग्रामीण भारत का सशक्तिकरण';
+                headline.innerHTML = 'करुणा का एक छोटा कदम, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-teal-500">लाखों जीवन में बदलाव</span>।';
+                showToast('🇮🇳 भाषा बदलकर हिंदी कर दी गई है');
+            } else if (lang === 'OD') {
+                badge.textContent = '୨୦୧୯ ରୁ ଗ୍ରାମୀଣ ଭାରତର ସଶକ୍ତିକରଣ';
+                headline.innerHTML = 'ସହାନୁଭୂତିର ଏକ ଛୋଟ ପ୍ରୟାସ, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-teal-500">ଲକ୍ଷ ଲକ୍ଷ ଜୀବନରେ ପରିବର୍ତ୍ତନ</span>।';
+                showToast('🇮🇳 ଭାଷା ଓଡ଼ିଆକୁ ପରିବର୍ତ୍ତନ କରାଯାଇଛି');
+            } else {
+                badge.textContent = 'Empowering Grassroots India Since 2019';
+                headline.innerHTML = 'Small Acts of Kindness, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-teal-500">Transforming Millions</span> of Lives.';
+                showToast('🌐 Language set to English');
+            }
+        }
+
+        // --- Dark Mode, Modals & Utilities ---
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            icon.className = document.documentElement.classList.contains('dark') ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon';
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function openTaskModal() {
+            document.getElementById('taskModal').classList.remove('hidden');
+        }
+
+        function openContactModal() {
+            document.getElementById('contactModal').classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function copyLinkedInPost() {
+            const box = document.getElementById('linkedInCaptionBox');
+            box.select();
+            document.execCommand('copy');
+            showToast('✅ LinkedIn Caption Copied to Clipboard!');
+        }
+
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            document.getElementById('newsletterEmail').value = '';
+            showToast('🎉 Subscribed to InAmigos Monthly Impact Digest!');
+        }
+
+        function submitQuickContact(e) {
+            e.preventDefault();
+            closeModal('contactModal');
+            showToast('📨 Message sent to InAmigos Support Team!');
+        }
+
+        function showToast(msg) {
+            const box = document.getElementById('toastBox');
+            document.getElementById('toastMessage').textContent = msg;
+            box.classList.remove('hidden');
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => box.classList.add('hidden'), 3500);
+        }
+
+        // --- Initialize on Load ---
+        window.onload = function() {
+            renderCampaigns('all');
+            renderTestimonials('all');
+            updateDonationUI();
+        };
+    </script>
+</body>
+</html>
